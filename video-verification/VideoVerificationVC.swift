@@ -67,8 +67,8 @@ extension VideoVerificationVC {
         
         if isBlinking, hasFacialMovement {
             DispatchQueue.main.async { [weak self] in
-//                self?.captureSession.stopRunning()
-//                self?.gotoVerificationWithDown()
+                self?.captureSession.stopRunning()
+                self?.gotoVerificationWithDown()
             }
         }
     }
