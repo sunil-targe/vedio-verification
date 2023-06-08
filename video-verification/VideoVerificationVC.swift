@@ -12,8 +12,17 @@ import Vision
 class VideoVerificationVC: UIViewController {
     @IBOutlet weak var faceDetectedLabel: UILabel!
     
-    var previousObservation: VNFaceObservation? = nil
+    @IBOutlet weak var statusView: UIView!
+    @IBOutlet weak var headStatusLabel: UILabel!
+    @IBOutlet weak var eyeBlinkStatusLabel: UILabel!
     
+    var verifiedHeadMovement: Bool = false
+    var verifiedEyeBlinking: Bool = false
+    
+    var headMovementArray: [Bool] = []
+    var eyeBlinkingArray: [Bool] = []
+    
+    var previousObservation: VNFaceObservation? = nil
     var previousLeftEyeAspectRatio: Float = 0.0
     var previousRightEyeAspectRatio: Float = 0.0
     
@@ -31,10 +40,36 @@ class VideoVerificationVC: UIViewController {
         startVideoCapture()
     }
         
+    private func checkResult(_ array: [Bool]) -> Bool {
+        var trueCount = 0
+        var falseCount = 0
+        
+        for element in array {
+            if element {
+                trueCount += 1
+            } else {
+                falseCount += 1
+            }
+            
+            if trueCount > 10 && falseCount > 10 {
+                return true
+            }
+        }
+        
+        return trueCount == 0 || falseCount == 0
+    }
+    
     func updateUI(_ faceDetected: Bool = false) {
-        view.bringSubviewToFront(faceDetectedLabel)
+        view.bringSubviewToFront(statusView)
         faceDetectedLabel.text = faceDetected ? "Face detected" : "Face not in the frame"
         faceDetectedLabel.textColor = faceDetected ? .green : .red
+        
+        if !faceDetected {
+            verifiedHeadMovement = false
+            verifiedEyeBlinking = false
+            headMovementArray.removeAll()
+            eyeBlinkingArray.removeAll()
+        }
     }
     
     func gotoVerificationWithDown() {
@@ -58,19 +93,35 @@ extension VideoVerificationVC {
         
         // Detect blinking eyes
         let isBlinking = isEyeBlinking(leftEyeAspectRatio, rightEyeAspectRatio)
+        eyeBlinkingArray.append(isBlinking)
         
         // Detect facial movement
         let hasFacialMovement = hasMovement(observation)
+        headMovementArray.append(hasFacialMovement)
         
         // Update UI or perform actions based on blinking and facial movement detection results
         print("Blinking: \(isBlinking), Facial Movement: \(hasFacialMovement)")
+        print("Blinking array: \(eyeBlinkingArray), Facial Movement array: \(headMovementArray)")
         
-        if isBlinking, hasFacialMovement {
-            DispatchQueue.main.async { [weak self] in
-                self?.captureSession.stopRunning()
-                self?.gotoVerificationWithDown()
+//        if isBlinking, hasFacialMovement {
+//            DispatchQueue.main.async { [weak self] in
+//                self?.captureSession.stopRunning()
+//                self?.gotoVerificationWithDown()
+//            }
+//        }
+        
+        if !verifiedHeadMovement, checkResult(headMovementArray) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                guard let self = self else { return }
+                verifiedHeadMovement = true
+                if !verifiedEyeBlinking, checkResult(eyeBlinkingArray) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.verifiedEyeBlinking = true
+                    }
+                }
             }
         }
+
     }
     
     private func calculateEyeAspectRatio(_ eye: VNFaceLandmarkRegion2D, isLeft: Bool = true) -> Float {
@@ -84,9 +135,6 @@ extension VideoVerificationVC {
         let rightmostPoint = eyePoints[isLeft ? 3 : 0]
         let topPoint = eyePoints[1]
         let bottomPoint = eyePoints[5]
-        
-        debugPrint(rightmostPoint)
-        debugPrint(leftmostPoint)
         
         let width = rightmostPoint.x - leftmostPoint.x
         let height = bottomPoint.y - topPoint.y

@@ -18,6 +18,11 @@ extension VideoVerificationVC: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
+//        guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+//                    print("Failed to get the camera device")
+//                    return
+//                }
+        
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice)
             captureSession.addInput(input)
@@ -62,6 +67,18 @@ extension VideoVerificationVC: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
             DispatchQueue.main.async {
                 self?.updateUI(observations.count > 0)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.headStatusLabel.text = self?.verifiedHeadMovement ?? false ? "Verified head movement ✓" : "Move your face ⧗"
+                self?.headStatusLabel.textColor = self?.verifiedHeadMovement ?? false ? .green : .white
+            }
+            
+            if self?.verifiedHeadMovement ?? false {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self?.eyeBlinkStatusLabel.text = self?.verifiedEyeBlinking ?? false ? "Verified eyes blink ✓" : "Blink your eyes ⧗"
+                    self?.eyeBlinkStatusLabel.textColor = self?.verifiedEyeBlinking ?? false ? .green : .white
+                }
             }
         }
         
