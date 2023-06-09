@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3823C5A02A284EEC00519B10 /* StatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3823C59F2A284EEC00519B10 /* StatusVC.swift */; };
-		3823C5A22A2854C000519B10 /* VideoVerificationVC+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3823C5A12A2854C000519B10 /* VideoVerificationVC+Helper.swift */; };
 		38EB7E902A31E065002F0F61 /* FaceDetectorFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EB7E8D2A31E065002F0F61 /* FaceDetectorFilter.swift */; };
 		38EB7E912A31E065002F0F61 /* FaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EB7E8E2A31E065002F0F61 /* FaceDetector.swift */; };
 		38EB7E922A31E065002F0F61 /* SequenceSmoother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EB7E8F2A31E065002F0F61 /* SequenceSmoother.swift */; };
@@ -19,12 +17,9 @@
 		38FE07602A26F32C00C7A0B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38FE075E2A26F32C00C7A0B2 /* Main.storyboard */; };
 		38FE07622A26F32E00C7A0B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FE07612A26F32E00C7A0B2 /* Assets.xcassets */; };
 		38FE07652A26F32E00C7A0B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38FE07632A26F32E00C7A0B2 /* LaunchScreen.storyboard */; };
-		38FE076D2A26F4E700C7A0B2 /* VideoVerificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FE076C2A26F4E700C7A0B2 /* VideoVerificationVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3823C59F2A284EEC00519B10 /* StatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVC.swift; sourceTree = "<group>"; };
-		3823C5A12A2854C000519B10 /* VideoVerificationVC+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoVerificationVC+Helper.swift"; sourceTree = "<group>"; };
 		38EB7E8D2A31E065002F0F61 /* FaceDetectorFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetectorFilter.swift; sourceTree = "<group>"; };
 		38EB7E8E2A31E065002F0F61 /* FaceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetector.swift; sourceTree = "<group>"; };
 		38EB7E8F2A31E065002F0F61 /* SequenceSmoother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceSmoother.swift; sourceTree = "<group>"; };
@@ -37,7 +32,6 @@
 		38FE07612A26F32E00C7A0B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38FE07642A26F32E00C7A0B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38FE07662A26F32E00C7A0B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38FE076C2A26F4E700C7A0B2 /* VideoVerificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoVerificationVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +79,6 @@
 				38FE075A2A26F32C00C7A0B2 /* SceneDelegate.swift */,
 				38EB7E932A31E071002F0F61 /* BWFLivenessCaptureVC.swift */,
 				38FE075C2A26F32C00C7A0B2 /* ViewController.swift */,
-				38FE076C2A26F4E700C7A0B2 /* VideoVerificationVC.swift */,
-				3823C5A12A2854C000519B10 /* VideoVerificationVC+Helper.swift */,
-				3823C59F2A284EEC00519B10 /* StatusVC.swift */,
 				38FE075E2A26F32C00C7A0B2 /* Main.storyboard */,
 				38FE07612A26F32E00C7A0B2 /* Assets.xcassets */,
 				38FE07632A26F32E00C7A0B2 /* LaunchScreen.storyboard */,
@@ -167,16 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3823C5A22A2854C000519B10 /* VideoVerificationVC+Helper.swift in Sources */,
 				38FE075D2A26F32C00C7A0B2 /* ViewController.swift in Sources */,
 				38EB7E902A31E065002F0F61 /* FaceDetectorFilter.swift in Sources */,
 				38FE07592A26F32C00C7A0B2 /* AppDelegate.swift in Sources */,
-				3823C5A02A284EEC00519B10 /* StatusVC.swift in Sources */,
 				38FE075B2A26F32C00C7A0B2 /* SceneDelegate.swift in Sources */,
 				38EB7E922A31E065002F0F61 /* SequenceSmoother.swift in Sources */,
 				38EB7E912A31E065002F0F61 /* FaceDetector.swift in Sources */,
 				38EB7E942A31E071002F0F61 /* BWFLivenessCaptureVC.swift in Sources */,
-				38FE076D2A26F4E700C7A0B2 /* VideoVerificationVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

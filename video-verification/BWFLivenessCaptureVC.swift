@@ -35,9 +35,9 @@ class BWFLivenessCaptureVC: UIViewController {
         return label
     }()
     
-    internal func spaceString(_ string: String) -> String {
-        return string.uppercased().map({ c in "\(c) " }).joined()
-    }
+//    internal func spaceString(_ string: String) -> String {
+//        return string.uppercased().map({ c in "\(c) " }).joined()
+//    }
     
     var blinkingNumber: Int = 0
     
@@ -84,15 +84,13 @@ extension BWFLivenessCaptureVC: FaceDetectorFilterDelegate {
 
 
     
-    //MARK: Eye distance should be CGFloat(70.0)
     //MARK: if bliking is true then this method will trigger and you will receive an image here
-    // Here
     func blinking(image: UIImage?) {
         blinkingNumber += 1
         showBlinkNumber(blinkingNumber)
         
         debugPrint("Eye blinking: \(blinkingNumber) times")
-        if blinkingNumber > 3 {
+        if blinkingNumber > 2 {
             faceStatusLabel.text = "Don't move"
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                 self.faceDetector.endFaceDetection()

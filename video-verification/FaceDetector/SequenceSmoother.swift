@@ -33,11 +33,9 @@ struct SequenceSmoother<Element> {
     mutating func smooth(_ value: Element) -> Element {
         if cache.count < maxCacheSize {
             cache.append(value)
-        }
-        else {
+        } else {
             cache[currentPos] = value
         }
-        
         currentPos = (currentPos + 1) % maxCacheSize
         
         //Return Average

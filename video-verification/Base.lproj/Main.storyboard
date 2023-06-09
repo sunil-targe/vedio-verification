@@ -67,103 +67,6 @@
             </objects>
             <point key="canvasLocation" x="342.74809160305341" y="57.74647887323944"/>
         </scene>
-        <!--Video VerificationVC-->
-        <scene sceneID="5wZ-w3-1Un">
-            <objects>
-                <viewController storyboardIdentifier="VideoVerificationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L2Q-9T-tOZ" customClass="VideoVerificationVC" customModule="video_verification" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rBD-eg-W8a">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vbt-L6-D9O">
-                                <rect key="frame" x="0.0" y="639" width="393" height="213"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qay-AL-Gnn">
-                                        <rect key="frame" x="196.66666666666666" y="-243.33333333333331" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                        <color key="textColor" systemColor="systemGreenColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UI-Oy-6ux">
-                                        <rect key="frame" x="196.66666666666666" y="20" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
-                                        <color key="textColor" red="0.92144982993197277" green="0.83346338535414177" blue="0.60916241496598644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTx-P6-WAg">
-                                        <rect key="frame" x="196.66666666666666" y="40" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
-                                        <color key="textColor" red="0.92144982993197277" green="0.83346338535414177" blue="0.60916241496598644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.39621274834437087" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="kTx-P6-WAg" firstAttribute="top" secondItem="8UI-Oy-6ux" secondAttribute="bottom" constant="20" id="7UE-as-GQ2"/>
-                                    <constraint firstItem="8UI-Oy-6ux" firstAttribute="centerX" secondItem="Vbt-L6-D9O" secondAttribute="centerX" id="9kC-2A-9wv"/>
-                                    <constraint firstItem="Qay-AL-Gnn" firstAttribute="centerY" secondItem="Vbt-L6-D9O" secondAttribute="centerY" constant="-350" id="RDV-WH-EVI"/>
-                                    <constraint firstItem="kTx-P6-WAg" firstAttribute="centerX" secondItem="Vbt-L6-D9O" secondAttribute="centerX" id="jBR-j4-Rh8"/>
-                                    <constraint firstItem="Qay-AL-Gnn" firstAttribute="centerX" secondItem="Vbt-L6-D9O" secondAttribute="centerX" id="mq3-Lb-Rzn"/>
-                                    <constraint firstItem="8UI-Oy-6ux" firstAttribute="top" secondItem="Vbt-L6-D9O" secondAttribute="top" constant="20" id="pRG-Rz-lc9"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="4H8-Kw-d2P"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Vbt-L6-D9O" firstAttribute="trailing" secondItem="4H8-Kw-d2P" secondAttribute="trailing" id="C3U-IT-68a"/>
-                            <constraint firstItem="Vbt-L6-D9O" firstAttribute="height" secondItem="rBD-eg-W8a" secondAttribute="height" multiplier="0.25" id="gp1-4M-3pD"/>
-                            <constraint firstAttribute="bottom" secondItem="Vbt-L6-D9O" secondAttribute="bottom" id="mvv-iA-kO2"/>
-                            <constraint firstItem="Vbt-L6-D9O" firstAttribute="leading" secondItem="4H8-Kw-d2P" secondAttribute="leading" id="qb0-x3-P0a"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Vz1-tj-O0u">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="MNW-AV-ZJC"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="eyeBlinkStatusLabel" destination="kTx-P6-WAg" id="Xlo-Vf-Qkr"/>
-                        <outlet property="faceDetectedLabel" destination="Qay-AL-Gnn" id="paY-PL-a7d"/>
-                        <outlet property="headStatusLabel" destination="8UI-Oy-6ux" id="Xhn-Jd-fDS"/>
-                        <outlet property="statusView" destination="Vbt-L6-D9O" id="j4G-Uh-oJC"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yiR-Mx-eRc" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1214.5038167938931" y="57.74647887323944"/>
-        </scene>
-        <!--StatusVC-->
-        <scene sceneID="4Gl-wn-oaw">
-            <objects>
-                <viewController storyboardIdentifier="StatusVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0vX-kp-XNq" customClass="StatusVC" customModule="video_verification" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xlh-Ei-yVF">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verifying selfie..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95G-Cm-ocO">
-                                <rect key="frame" x="92.333333333333329" y="410" width="208.33333333333337" height="32.333333333333314"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                <color key="textColor" systemColor="systemOrangeColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="LNj-Xk-3sB"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="95G-Cm-ocO" firstAttribute="centerX" secondItem="xlh-Ei-yVF" secondAttribute="centerX" id="ORV-sK-u1L"/>
-                            <constraint firstItem="95G-Cm-ocO" firstAttribute="centerY" secondItem="xlh-Ei-yVF" secondAttribute="centerY" id="THe-oJ-xwn"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Hze-On-JpU">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="Ftq-cX-sbO"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="statusLabel" destination="95G-Cm-ocO" id="v9w-zy-Mcd"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tbd-iC-9qy" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1950" y="58"/>
-        </scene>
         <!--Liveness CaptureVC-->
         <scene sceneID="6B5-zg-Igz">
             <objects>
@@ -184,7 +87,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position your face fully within the frame and blink your eye 4 time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUV-O4-fJE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position your face fully within the frame and blink your eye 3 time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUV-O4-fJE">
                                         <rect key="frame" x="20" y="42" width="353" height="40.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -230,19 +133,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q7c-cC-kit" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1431.2977099236641" y="845.77464788732402"/>
+            <point key="canvasLocation" x="1094" y="58"/>
         </scene>
     </scenes>
     <resources>
         <image name="background" width="375" height="812"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

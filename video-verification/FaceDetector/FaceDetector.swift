@@ -28,7 +28,6 @@ protocol FaceDetectorDelegate {
 }
 
 class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
-    
     var delegate: FaceDetectorDelegate?
     
     var cameraView: UIView = UIView()
@@ -65,7 +64,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         detector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh as AnyObject])
     }
     
-    //MARK: SETUP OF VIDEOCAPTURE
+    //MARK: setup video capture
     func beginFaceDetection() {
         if let connection = captureSession.outputs.first?.connection(with: .video) {
             if connection.isVideoOrientationSupported {
@@ -123,23 +122,17 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             cameraView.layer.addSublayer(previewLayer)
         }
     }
+    
     var blinkingNumber: Int = 0
     var options : [String : AnyObject]?
     //MARK: CAPTURE-OUTPUT/ANALYSIS OF FACIAL-FEATURES
     func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-//        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-//        let opaqueBuffer = Unmanaged<CVImageBuffer>.passUnretained(imageBuffer!).toOpaque()
-//        let pixelBuffer = Unmanaged<CVPixelBuffer>.fromOpaque(opaqueBuffer).takeUnretainedValue()
-//        let sourceImage = CIImage(cvPixelBuffer: pixelBuffer, options: nil)
-//        let image : UIImage = self.convert(cmage: sourceImage)
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        
         let sourceImage = CIImage(cvPixelBuffer: imageBuffer)
         let context = CIContext()
-        // Perform any required image processing or adjustments here
-        
         guard let cgImage = context.createCGImage(sourceImage, from: sourceImage.extent) else { return }
+        
         let image = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .upMirrored)
 //        options = [CIDetectorSmile : true as AnyObject, CIDetectorEyeBlink: true as AnyObject, CIDetectorImageOrientation : 5 as AnyObject]  //6
         options = [CIDetectorEyeBlink: true as AnyObject, CIDetectorImageOrientation : 5 as AnyObject]  //6
@@ -154,9 +147,8 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                 delegateEvents.append(.faceDetected)
             }
             
-            //for feature in features as! [CIFaceFeature] {
-            //Detect only the first face !!!
             let faceFeatures = features as! [CIFaceFeature]
+            //Detect only the first face !!!
             //print(faceFeatures.count)
             if faceFeatures.count > 0 {
                 let feature = faceFeatures[0]
@@ -226,8 +218,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                         delegateEvents.append(.rightEyeClosed)
                         rightEyeClosed = true
                     }
-                }
-                else if feature.leftEyeClosed || feature.rightEyeClosed {
+                } else if feature.leftEyeClosed || feature.rightEyeClosed {
                     if !isWinking {
                         delegateEvents.append(.winking)
                         isWinking = true
@@ -252,8 +243,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                             leftEyeClosed = false
                         }
                     }
-                }
-                else { //Both eyes opened
+                } else { //Both eyes opened
                     if isBlinking {
                         delegateEvents.append(.notBlinking)
                         isBlinking = false
@@ -272,8 +262,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     }
                 }
             }
-        }
-        else {
+        } else {
             if faceDetected {
                 delegateEvents.append(.noFaceDetected)
                 faceDetected = false
@@ -299,16 +288,11 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                 rightEyeClosed = false
             }
         }
-//        if blinkingNumber < 1 {
-//            delegate?.faceDetectorEvent(delegateEvents, image: nil)
-//        } else {
-//            delegate?.faceDetectorEvent(delegateEvents, image: image)
-//        }
-        
+
         delegate?.faceDetectorEvent(delegateEvents, image: blinkingNumber > 0 ? image : nil)
     }
     
-    internal func transformFacialFeaturePoint(_ position: CGPoint, videoRect: CGRect, previewRect: CGRect, isMirrored: Bool) -> CGPoint {
+    private func transformFacialFeaturePoint(_ position: CGPoint, videoRect: CGRect, previewRect: CGRect, isMirrored: Bool) -> CGPoint {
         var featureRect = CGRect(origin: position, size: CGSize(width: 0, height: 0))
         let widthScale = previewRect.size.width / videoRect.size.height
         let heightScale = previewRect.size.height / videoRect.size.width
@@ -323,7 +307,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         return featureRect.origin
     }
 
-    internal func transformFacialFeatureRect(_ featureRect: CGRect, videoRect: CGRect, previewRect: CGRect, isMirrored: Bool) -> CGRect {
+    private func transformFacialFeatureRect(_ featureRect: CGRect, videoRect: CGRect, previewRect: CGRect, isMirrored: Bool) -> CGRect {
         let widthScale = previewRect.size.width / videoRect.size.height
         let heightScale = previewRect.size.height / videoRect.size.width
         
@@ -335,14 +319,6 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         transformedRect = transformedRect.offsetBy(dx: previewRect.origin.x, dy: previewRect.origin.y)
         
         return transformedRect
-    }
-    
-    // Convert CIImage to CGImage
-    func convert(cmage:CIImage) -> UIImage {
-        let context:CIContext = CIContext.init(options: nil)
-        let cgImage:CGImage = context.createCGImage(cmage, from: cmage.extent)!
-        let image:UIImage = UIImage.init(cgImage: cgImage)
-        return image
     }
 }
 
