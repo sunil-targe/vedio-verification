@@ -11,7 +11,7 @@ import UIKit
 class BWFLivenessCaptureVC: UIViewController {
     @IBOutlet weak var indicatorView: UIView!
     @IBOutlet weak var faceStatusLabel: UILabel!
-    @IBOutlet weak var faceFrameImgView: UIImageView!
+    @IBOutlet weak var backgroundImgView: UIImageView!
     var imageHandler : ((UIImage) -> Void)?
     
     var faceDetectorFilter: FaceDetectorFilter!
@@ -43,17 +43,13 @@ class BWFLivenessCaptureVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .white
-        
         faceDetector.beginFaceDetection()
         let cameraView = faceDetector.cameraView
         view.addSubview(cameraView)
         view.addSubview(blinkCountLabel)
+        view.bringSubviewToFront(backgroundImgView)
         view.bringSubviewToFront(indicatorView)
     }
-    
-    
 }
 
 
@@ -82,23 +78,8 @@ extension BWFLivenessCaptureVC: FaceDetectorFilterDelegate {
 //                debugPrint("leftPos: \(leftPos)")
 //                debugPrint("rightPos: \(rightPos)")
             let eyesDistance = leftPos.distance(to: rightPos)
-            
-            let leftEyeIsInFrame = isPointWithinViewSize(point: leftPos, subview: faceFrameImgView)
-            let rightEyeIsInFrame = isPointWithinViewSize(point: rightPos, subview: faceFrameImgView)
-            
-            if leftEyeIsInFrame, rightEyeIsInFrame {
-//                debugPrint("Image is in the center")
-            }
 
         }
-        
-    }
-    
-    private func isPointWithinViewSize(point: CGPoint, subview: UIView) -> Bool {
-        let convertedPoint = subview.convert(point, from: subview.superview)
-        let subviewBounds = CGRect(origin: CGPoint(x: subview.bounds.midX - subview.frame.width / 2, y: subview.bounds.midY - subview.frame.height / 2),
-                                   size: subview.frame.size)
-        return subviewBounds.contains(convertedPoint)
     }
 
 
