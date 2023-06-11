@@ -152,8 +152,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             //print(faceFeatures.count)
             if faceFeatures.count > 0 {
                 let feature = faceFeatures[0]
-                faceBounds = transformFacialFeatureRect(feature.bounds, videoRect: sourceImage.extent, previewRect: cameraViewBonds, isMirrored: true)
-                //print(faceBounds)
+                faceBounds = feature.bounds//transformFacialFeatureRect(feature.bounds, videoRect: sourceImage.extent, previewRect: cameraViewBonds, isMirrored: true)
                 if feature.hasFaceAngle {
                     //print(feature.hasFaceAngle)
                     if (faceAngle != nil) {
@@ -198,7 +197,7 @@ class FaceDetector: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     if !isBlinking {
                         if let distance =  eyesDistance, distance > CGFloat(70.0) {
                             blinkingNumber += 1
-                            print("Blinking: eye distance \(distance)")
+//                            print("Blinking: eye distance \(distance)")
                             delegateEvents.append(.blinking)
                             isBlinking = true
                         }

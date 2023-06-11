@@ -35,10 +35,6 @@ class BWFLivenessCaptureVC: UIViewController {
         return label
     }()
     
-//    internal func spaceString(_ string: String) -> String {
-//        return string.uppercased().map({ c in "\(c) " }).joined()
-//    }
-    
     var blinkingNumber: Int = 0
     
     override func viewDidLoad() {
@@ -57,10 +53,7 @@ extension BWFLivenessCaptureVC: FaceDetectorFilterDelegate {
     
     //MARK: FaceDetectorFilter Delegate
     func faceDetected() {
-        DispatchQueue.main.async {
-            self.faceStatusLabel.text = "Keep face center"
-        }
-        
+       //
     }
     
     func faceUnDetected() {
@@ -74,11 +67,20 @@ extension BWFLivenessCaptureVC: FaceDetectorFilterDelegate {
     }
     
     func faceEyePosition(left: CGPoint, right: CGPoint) {
-        if let leftPos = self.faceDetector.leftEyePosition, let rightPos = self.faceDetector.rightEyePosition {
-//                debugPrint("leftPos: \(leftPos)")
-//                debugPrint("rightPos: \(rightPos)")
-            let eyesDistance = leftPos.distance(to: rightPos)
-
+        //        if let leftPos = self.faceDetector.leftEyePosition, let rightPos = self.faceDetector.rightEyePosition {
+        //            let eyesDistance = leftPos.distance(to: rightPos)
+        //        }
+        
+        if let faceBounds = self.faceDetector.faceBounds {
+//            print("feature.bounds: \(faceBounds)")
+            if faceBounds.origin.x >= 200,
+               faceBounds.origin.x <= 400,
+               faceBounds.origin.y >= 500,
+               faceBounds.origin.y <= 700 {
+                faceStatusLabel.text = "Don't move"
+            } else {
+                faceStatusLabel.text = "Keep face center"
+            }
         }
     }
 
@@ -88,15 +90,14 @@ extension BWFLivenessCaptureVC: FaceDetectorFilterDelegate {
     func blinking(image: UIImage?) {
         blinkingNumber += 1
         showBlinkNumber(blinkingNumber)
-        
-        debugPrint("Eye blinking: \(blinkingNumber) times")
+        //        debugPrint("Eye blinking: \(blinkingNumber) times")
         if blinkingNumber > 2 {
-            faceStatusLabel.text = "Don't move"
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                self.faceDetector.endFaceDetection()
-                if let handler = self.imageHandler, let image {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+                guard let self else { return }
+                if let handler = self.imageHandler, let image, faceStatusLabel.text == "Don't move" {
+                    self.faceDetector.endFaceDetection()
                     handler(image)
-                    self.navigationController?.popViewController(animated: true)
+                    navigationController?.popViewController(animated: true)
                 }
             })
             
